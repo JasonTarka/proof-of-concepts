@@ -1,0 +1,56 @@
+<html>
+<head>
+	<style type="text/css">
+	
+		.word-wrap {
+			word-wrap: break-word;
+		}
+		
+		.hidden {
+			position:absolute;
+			left:-10000px;
+			top:auto;
+			width:1px;
+			height:1px;
+			overflow:hidden;
+		}	
+	</style>
+</head>
+<body>
+	<h1>Demo Page for Screen-Readers Not Reading Spaces</h1>
+	<div class="word-wrap">
+		<p>
+			This is a proof-of-concept page showing issues in NVDA and VoiceOver.
+			In NVDA, spaces are not read, and in VoiceOver, words are read as single characters at a time.
+			Some hidden text as an example:
+		</p>
+		<div class="hidden">
+			This has no spaces in NVDA and as single characters in VoiceOver
+		</div>
+		<p>
+			This appears to be caused by adding <code>word-wrap: break-word;</code> to a parent element.
+			Applying <code>white-space: nowrap;</code> or <code>word-wrap: normal</code> seems to fix the issue.
+			For example:
+		</p>
+		<div class="hidden" style="white-space: nowrap">
+			Using white-space: nowrap, NVDA separates the words, and VoiceOver reads as a sentence.
+		</div>
+		<div class="hidden" style="word-wrap: normal">
+			With "word-wrap: normal", NVDA reads this fine, but VoiceOver does so as a series of single words.
+		</div>
+	</div>
+	<div>
+		<p>
+			Not using <code>word-wrap: break-word;</code> at all produces something like this:
+		</p>
+		<div class="hidden">
+			NVDA has no issues, but VoiceOver still reads as individual words.
+		</div>
+		<p>
+			My recommendation would be <code>white-space: nowrap</code> as it fixes the issues in both NVDA and VoiceOver,
+			regardless of whether <code>word-wrap</code> was used on a parent element.
+		</p>
+	</div>
+</body>
+</html>
+
